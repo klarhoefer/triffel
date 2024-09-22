@@ -1,0 +1,19 @@
+# make -f Makefile.mac
+SASS=sass
+
+all: dist/main.js dist/index.html dist/main.css dist/favicon.ico pics
+
+dist/main.js: src/Main.elm
+	elm make src/Main.elm --output=dist/main.js --debug
+
+dist/index.html: artifacts/index.html
+	cp artifacts/index.html dist
+
+dist/main.css: artifacts/main.scss
+	$(SASS) artifacts/main.scss dist/main.css --no-source-map
+
+dist/favicon.ico: artifacts/favicon.ico
+	cp artifacts/favicon.ico dist
+
+pics:
+	cp artifacts/*.png dist
