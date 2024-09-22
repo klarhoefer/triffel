@@ -15,6 +15,17 @@ type alias Model =
     , playerName : String
     }
 
+
+initModel : Model
+initModel =
+    { screen = Start
+    , gameType = Seven
+    , gameRules = Triffel
+    , players = []
+    , playerName = ""
+    }
+
+
 type GameType
     = Classic
     | Seven
@@ -51,11 +62,11 @@ main =
 
 init : () -> (Model, Cmd Msg)
 init _ =
-    (Model Start Seven Triffel [] "", Cmd.none)
+    (initModel, Cmd.none)
 
 
 subscriptions : Model -> Sub Msg
-subscriptions model = Sub.none
+subscriptions _ = Sub.none
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
@@ -128,6 +139,6 @@ viewPlayer name =
 
 
 viewGame : Model -> Html Msg
-viewGame model =
+viewGame _ =
     div []
         []
