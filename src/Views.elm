@@ -5,7 +5,7 @@ import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 
 import Shared exposing (..)
-
+import Icons exposing (..)
 
 view : Model -> Html Msg
 view model =
@@ -68,4 +68,83 @@ viewPlayer name =
 viewGame : Model -> Html Msg
 viewGame _ =
     div []
-        []
+        [ table []
+            [ thead []
+                ([ th [] []
+                , th [] []
+                ] ++ (
+                    [1, 2, 3, 4, 5, 6]
+                    |> List.map (\n -> viewSpielHdr n)
+                ))
+            , tbody []
+                ([] ++ (viewPasche))
+            ]
+        ]
+
+
+viewSpielHdr : Int -> Html Msg
+viewSpielHdr n =
+    th [] [ text <| (String.fromInt n) ++ ". Spiel" ]
+
+viewPasche : List (Html Msg)
+viewPasche =
+    [1, 2, 3, 4, 5, 6, 7]
+    |> List.map viewPaschRow
+
+
+iconSize : Int
+iconSize = 32
+
+
+nurNzaehlen : Int -> String
+nurNzaehlen n =
+    let
+        ausgeschrieben =
+            case n of
+                1 -> "Einser"
+                2 -> "Zweier"
+                3 -> "Dreier"
+                4 -> "Vierer"
+                5 -> "Fünfer"
+                6 -> "Sechser"
+                _ -> "Siebener"
+    in
+        "Nur " ++ ausgeschrieben ++ " zählen"
+
+
+viewPaschRow : Int -> Html Msg
+viewPaschRow n =
+    tr []
+        ([ td []
+            [ dice iconSize n
+            , dice iconSize n
+            , dice iconSize n
+            ]
+        , td []
+            [ text <| nurNzaehlen n ]
+        ] ++ (
+            [1, 2, 3, 4, 5, 6]
+            |> List.map (\_ -> viewPaschField n)
+        ))
+
+
+viewPaschField : Int -> Html Msg
+viewPaschField n =
+    td []
+        [ select []
+            ((option [] []) :: ([0,1,2,3,4,5,6]
+                |> List.map (viewPaschOpt n))
+            )
+        ]
+
+
+viewPaschOpt : Int -> Int -> Html Msg
+viewPaschOpt v n =
+    let
+        val = n * v
+        sval = case val of
+            0 -> "-"
+            x -> String.fromInt x
+    in
+        option []
+            [ text sval ]
