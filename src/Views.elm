@@ -9,7 +9,7 @@ import Icons exposing (..)
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ class "outer-div" ]
         [ case model.screen of
             Start -> viewStart model
             Game -> viewGame model
@@ -46,23 +46,25 @@ viewStart model =
             ]
         , fieldset []
             [ legend [] [ text "Spieler" ]
-            , ul []
+            , ol []
                 (List.map viewPlayer model.players)
-            , input [ onInput PlayerChanged, autofocus True ] []
-            , button [ onClick AddPlayer ] [ text "Hinzufügen" ]
+            , div [ class "add-player" ]
+                [ input [ onInput PlayerChanged, autofocus True ] []
+                , button [ onClick AddPlayer ] [ text "Hinzufügen" ]
+                ]
             ]
-        , div []
+        , div [ class "settings-button" ]
             [ button [ class "start-button", onClick StartGame ] [ text "Start" ]
             ]
         ]
 
+
 viewPlayer : String -> Html Msg
 viewPlayer name =
     li []
-        [ span [] [ text name ]
+        [ span [ class "player-name" ] [ text name ]
         , button [ onClick (RemovePlayer name)] [ text "-" ]
         ]
-
 
 
 viewGame : Model -> Html Msg
@@ -84,7 +86,8 @@ viewGame _ =
 
 viewSpielHdr : Int -> Html Msg
 viewSpielHdr n =
-    th [] [ text <| (String.fromInt n) ++ ". Spiel" ]
+    th [ class "spiel-hdr" ] [ text <| (String.fromInt n) ++ ". Spiel" ]
+
 
 viewPasche : List (Html Msg)
 viewPasche =
@@ -130,7 +133,7 @@ viewPaschRow n =
 
 viewPaschField : Int -> Html Msg
 viewPaschField n =
-    td []
+    td [ class "td-cmb" ]
         [ select []
             ((option [] []) :: ([0,1,2,3,4,5,6]
                 |> List.map (viewPaschOpt n))

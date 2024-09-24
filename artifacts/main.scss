@@ -1,6 +1,9 @@
+
+$bkg-color: #aaf;
+
 body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: #aaf;
+    background-color: $bkg-color;
 }
 
 
@@ -15,4 +18,42 @@ body {
 .start-button {
     font-size: 160%;
     width: 160px;
+    background-color: $bkg-color;
+    border-radius: 8px;
+}
+
+div.settings-button {
+    margin-top: 2em;
+    text-align: center;
+}
+
+td.td-cmb {
+    width: 40px;
+    select {
+        width: 100%;
+        text-align: end;
+    }
+}
+
+th.spiel-hdr {
+    font-size: 50%;
+}
+
+div.add-player {
+    input {
+        width: 80px;
+        margin: 0 1em;
+    }
+    button {
+        border-radius: 4px;
+    }
+}
+
+span.player-name {
+    display: inline-block;
+    width: 160px;
+}
+
+.outer-div {
+    display: flex;
 }
